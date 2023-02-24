@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+SCRIPT_ROOT="$(realpath "$(dirname "${0}")")"
+
 META="$(mktemp)" # Will be filled META-INF/com/android/metadata
 
 getMetadataProp()
@@ -122,4 +124,16 @@ then
 else
     git commit -sm "${DEVICE}: Update ${LATEST_INCR} to ${INCR}"
 fi
+
+echo "-- Adding upload files"
+mkdir -p "upload"
+
+cp "${OTA}" "upload/${VER_FILENAME}"
+# Also add boot.img
+payload-dumper-go -p boot -o "upload" "${OTA}"
+mv "upload/boot.img" "upload/boot-${VER_FILENAME/.zip/.img}"
+
+echo "-- Generating release notes to STDOUT"
+
+DEVICE="${DEVICE}" INIT="${INIT}" LINEAGE_VER="${LINEAGE_VER}" BUILD_DATE="${BUILD_DATE}" "${SCRIPT_ROOT}/release_notes.sh"
 
