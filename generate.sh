@@ -93,13 +93,14 @@ EOF
     echo "-- Checking JSON"
     jq -r . "${DEVICE}/${LATEST_INCR}"
     echo "-- JSON is Valid"
+    git add "${DEVICE}/${LATEST_INCR}"
 fi
 
 echo "-- Writing new OTA json"
 
 JSON_PATH="${DEVICE}/${INCR}.json"
 
-mkdir -p "$(dirname "${JSON_PATH}")"
+mkdir -p "${DEVICE}"
 
 cat << EOF > "${JSON_PATH}"
 {
@@ -112,4 +113,13 @@ echo "-- Generated ${JSON_PATH}"
 echo "-- Making sure json seems valid"
 jq -r . "${JSON_PATH}"
 echo "-- Valid JSON"
+git add "${JSON_PATH}"
+
+echo "-- Commiting changes"
+if [ "$INIT" == "true" ];
+then
+    git commit -sm "${DEVICE}: Initial OTA repository"
+else
+    git commit -sm "${DEVICE}: Update ${LATEST_INCR} to ${INCR}"
+fi
 
