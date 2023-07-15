@@ -130,8 +130,9 @@ mkdir -p "upload"
 
 cp "${OTA}" "upload/${VER_FILENAME}"
 # Also add boot.img
-payload-dumper-go -p boot -o "upload" "${OTA}"
+payload-dumper-go -p boot,vendor_boot -o "upload" "${OTA}"
 mv "upload/boot.img" "upload/boot-${VER_FILENAME/.zip/.img}"
+mv "upload/vendor_boot.img" "upload/vendor_boot-${VER_FILENAME/.zip/.img}"
 
 echo "-- Generating release notes to STDOUT"
 
