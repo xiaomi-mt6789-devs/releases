@@ -86,7 +86,7 @@ if [[ "${INIT}" == "false" ]]; then
             "id": "$(md5sum "${OTA}" | awk '{print $1}')",
             "romtype": "unofficial",
             "size": "$(stat -c%s "${OTA}")",
-            "url": "https://github.com/xiaomi-mt6789-devs/releases/releases/download/${TS}/${VER_FILENAME}",
+            "url": "https://gitea.woomy.be/xiaomi-mt6789-devs/releases/releases/download/${TS}/${VER_FILENAME}",
             "version": "${LINEAGE_VER}"
         }
     ]
