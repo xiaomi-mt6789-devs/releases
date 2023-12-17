@@ -57,6 +57,9 @@ case "${SDK}" in
     33)
         LINEAGE_VER="20.0"
         ;;
+    34)
+        LINEAGE_VER="21.0"
+        ;;
     *)
         echo "Unknown sdk ver"
         exit 1
