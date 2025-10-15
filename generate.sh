@@ -145,5 +145,5 @@ mv "upload/vendor_boot.img" "upload/vendor_boot-${VER_FILENAME/.zip/.img}"
 
 echo "-- Generating release notes to STDOUT"
 
-DEVICE="${DEVICE}" INIT="${INIT}" LINEAGE_VER="${LINEAGE_VER}" BUILD_DATE="${BUILD_DATE}" "${SCRIPT_ROOT}/release_notes.sh"
+DEVICE="${DEVICE}" INIT="${INIT}" LINEAGE_VER="${LINEAGE_VER}" BUILD_DATE="${BUILD_DATE}" "${SCRIPT_ROOT}/release_notes.sh" | tee "upload/RELEASE_NOTES.md"
 

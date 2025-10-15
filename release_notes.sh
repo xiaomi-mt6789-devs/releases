@@ -49,7 +49,7 @@ echo "## Checksums (SHA256)"
 pushd "upload" >/dev/null
 cat << EOF
 \`\`\`
-$(sha256sum *)
+$(sha256sum *|grep -v RELEASE_NOTES)
 \`\`\`
 EOF
 popd >/dev/null
