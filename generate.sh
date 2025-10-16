@@ -14,8 +14,14 @@ getMetadataProp()
 
 OTA="${1}"
 INIT="false"
+SKIP_RELEASE="false"
+
 if [[ $# -gt 1 ]] && [[ "${2}" == "--init" ]]; then
     INIT="true"
+fi
+
+if [[ $# -gt 1 ]] && [[ "${2}" == "--skip-release" ]]; then
+    SKIP_RELEASE="true"
 fi
 
 if [[ ! -f "${1}" ]]
@@ -135,6 +141,7 @@ else
 fi
 
 echo "-- Adding upload files"
+rm -rf "upload"
 mkdir -p "upload"
 
 cp "${OTA}" "upload/${VER_FILENAME}"
@@ -146,4 +153,10 @@ mv "upload/vendor_boot.img" "upload/vendor_boot-${VER_FILENAME/.zip/.img}"
 echo "-- Generating release notes to STDOUT"
 
 DEVICE="${DEVICE}" INIT="${INIT}" LINEAGE_VER="${LINEAGE_VER}" BUILD_DATE="${BUILD_DATE}" "${SCRIPT_ROOT}/release_notes.sh" | tee "upload/RELEASE_NOTES.md"
+
+if [[ "${SKIP_RELEASE}" == "false" ]]; then
+    TITLE="$(head -n1 'upload/RELEASE_NOTES.md')"
+    CONTENT="$(tail -n+2 'upload/RELEASE_NOTES.md')"
+    gh release create "${TS}" "upload/boot-${VER_FILENAME/.zip/.img}" "upload/${VER_FILENAME}" -t "${TITLE}" -n "${CONTENT}"
+fi
 
