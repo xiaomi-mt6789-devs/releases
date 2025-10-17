@@ -37,7 +37,7 @@ echo "* SELinux is **${SE_STATUS}**"
 echo "* Only LineageOS Recovery is supported"
 echo "* Custom kernels are **NOT** supported"
 echo "* OTA Updates are suppored"
-echo "* [Installation guide](https://gitea.woomy.be/xiaomi-mt6789-devs/releases/wiki/Installation)"
+echo "* [Installation guide](https://github.com/xiaomi-mt6789-devs/releases/wiki/Installation)"
 echo ""
 
 echo "## Credits"
