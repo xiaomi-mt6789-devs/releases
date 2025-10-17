@@ -157,6 +157,9 @@ DEVICE="${DEVICE}" INIT="${INIT}" LINEAGE_VER="${LINEAGE_VER}" BUILD_DATE="${BUI
 if [[ "${SKIP_RELEASE}" == "false" ]]; then
     TITLE="$(head -n1 'upload/RELEASE_NOTES.md')"
     CONTENT="$(tail -n+2 'upload/RELEASE_NOTES.md')"
+    echo "-- Creating a release on GitHub"
     gh release create "${TS}" "upload/boot-${VER_FILENAME/.zip/.img}" "upload/${VER_FILENAME}" -t "${TITLE}" -n "${CONTENT}"
+    echo "-- Pushing update JSON"
+    git push origin main
 fi
 
