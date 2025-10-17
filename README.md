@@ -4,5 +4,7 @@
 
 This repo contains all stuff related to LineageOS OTA / Releases for yunluo
 
-You can find manifests in the `manifests/` folder
+You can find the local manifests in the `manifests/` folder
+
+All the builds are signed with private keys and contain extras that can be found [here](https://github.com/woomymy/android_vendor_extra)
 
